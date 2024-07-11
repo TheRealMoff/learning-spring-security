@@ -17,7 +17,7 @@ public class ApplicationSecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> {
                             auth
-                                    .requestMatchers("/", "/index", "/css/**", "/js/**")
+                                    .requestMatchers("/", "/index.html", "/css/**", "/js/**")
                                     .permitAll()
                                     .anyRequest()
                                     .authenticated();
