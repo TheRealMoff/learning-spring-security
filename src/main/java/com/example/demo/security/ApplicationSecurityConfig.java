@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.example.demo.security.ApplicationUserPermission.*;
 import static com.example.demo.security.ApplicationUserRole.*;
 
@@ -49,7 +51,10 @@ public class ApplicationSecurityConfig {
                         .permitAll()
                         .defaultSuccessUrl("/courses", true))
 
-                .rememberMe(Customizer.withDefaults());
+                .rememberMe(remember -> remember
+                        .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+                        .key("somethingVerySecured")
+                );
 
         return http.build();
 
