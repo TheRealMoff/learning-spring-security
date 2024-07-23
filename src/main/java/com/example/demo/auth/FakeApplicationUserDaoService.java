@@ -10,6 +10,17 @@ import java.util.Optional;
 
 import static com.example.demo.security.ApplicationUserRole.*;
 
+/*
+
+This is a dummy class which acts as a bridge between the business logic and the database where user information is stored.
+It encapsulates all the database-specific code, making it easier to manage and potentially switch databases without affecting
+the rest of your application.
+
+For now it does not connect to any specific database because I wanted to test out the authentication provider which works
+as intended and will be migrating to an actual database
+
+ */
+
 @Repository("fake")
 public class FakeApplicationUserDaoService implements ApplicationUserDao{
 
