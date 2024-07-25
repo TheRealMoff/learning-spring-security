@@ -47,7 +47,6 @@ public class ApplicationSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .csrf(AbstractHttpConfigurer::disable)
-
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
@@ -87,5 +86,6 @@ public class ApplicationSecurityConfig {
         provider.setUserDetailsService(applicationUserService);
 
         return provider;
+
     }
 }
