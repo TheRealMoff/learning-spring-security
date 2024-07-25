@@ -55,17 +55,15 @@ public class ApplicationSecurityConfig {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(http.getSharedObject
                         (AuthenticationConfiguration.class)), jwtConfig, secretKey))
                 .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
-                .authorizeHttpRequests((auth) -> {
-                    auth
-                            .requestMatchers("/", "/index.html", "/css/**", "/js/**").permitAll()
-                            .requestMatchers("/api/**").hasRole(STUDENT.name())
-                            .requestMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                            .requestMatchers(HttpMethod.POST, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                            .requestMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                            .requestMatchers(HttpMethod.GET, "/management/api/**").hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())
-                            .anyRequest()
-                            .authenticated();
-                })
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/api/**").hasRole(STUDENT.name())
+                        .requestMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
+                        .requestMatchers(HttpMethod.POST, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
+                        .requestMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
+                        .requestMatchers(HttpMethod.GET, "/management/api/**").hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())
+                        .anyRequest()
+                        .authenticated())
                 .authenticationProvider(daoAuthenticationProvider());
 
         return http.build();
